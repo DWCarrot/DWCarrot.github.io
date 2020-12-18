@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+</head>
+<body>
+    <h2>正在跳转...</h2>
+    <h2>Redirecting to...</h2>
+    <h4><a href="/blog" id="target_link">https://dwcarrot.github.io/blog</a></h4>
+    <h3>in <span id="num_container"></span>s</h3>
+
+
+    <script>
+        let c = document.getElementById("num_container");
+        let n = 3;
+        let h = { ref: 0 };
+        function update() {
+            n -= 1;
+            c.innerText = String(n);
+            if(n <= 0) {
+                clearInterval(h.ref);
+                location.href = document.getElementById("target_link").href
+            }
+        }
+
+        c.innerText = String(n);
+        h.ref = setInterval(update, 1000)
+        
+    </script>
+</body>
+</html>
