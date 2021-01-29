@@ -1,7 +1,11 @@
 ---
 title: Hexo-blog 折腾 & 试水-(1)
 date: 2020-12-19 00:01:38
-tags: Coding
+tags: 
+- hexo
+- hello-world
+categories: 
+- Coding
 ---
 
 
