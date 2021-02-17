@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Minecraft Ping</title>
+	</head>
+	<style>
+		.show {
+			background-color: grey;
+		}
+		
+		.input-select {
+			float: left;
+			margin-right: 5px;
+		}
+		
+		.input-select-list {
+			background-color: #EEE;
+		}
+		
+		.input-select-selection:hover {
+			background-color: #CCC;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<div id="time">
+			</div>
+			<div id="ping">
+				<div class="input">
+					<input-select v-on:change="updateQuery0" v-bind:list="list1" placeholder="host" ></input-select>
+				<!--	<input v-on:input="updateQuery($event.target.value, 'host')" placeholder="host"></input> -->
+					<input-select v-on:change="updateQuery1" v-bind:list="list2" placeholder="port" ></input-select>
+				<!--	<input v-on:input="updateQuery($event.target.value, 'port')" placeholder="port" type="number" min=0 max= 65535></input> -->
+					<input-select v-on:change="updateQuery2" v-bind:list="list3" placeholder="version" ></input-select>
+				<!--	<input v-on:input="updateQuery($event.target.value, 'version')" placeholder="version"></input> -->
+					<button v-on:click="ping()">query</button>
+					<div class="query">{{query}}</div>
+				</div>
+				<div class="show">
+					<div class="version" v-if="pingResult.version" >
+						{{pingResult.version.name}} (protocol-version={{pingResult.version.protocol}})
+					</div>
+					<div class="description" v-if="pingResult.description" >
+						<div class="text" v-if="pingResult.description.text" v-html="pingResult.description.text">
+						</div>
+					</div>
+					<div class="favicon" v-if="pingResult.favicon" v-html="pingResult.favicon" >
+						
+					</div>
+					<div class="players" v-if="pingResult.players" >
+						<div class="online" >
+							{{pingResult.players.online}} / {{pingResult.players.max}}
+						</div>
+						<ul id="sample" v-if="pingResult.players.sample" >
+						  <li v-for="(item, index) in pingResult.players.sample">
+							{{item.name}}
+						  </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		var debug = false;
+	
+		var pingResultShow = function(result) {
+			if(result) {
+				if(result.description) {
+					if(result.description.text) {
+						if(result.description.text[0] != '§')
+							result.description.text = '§r' + result.description.text;
+						let arr = result.description.text.split('§');
+						let last = {
+							color: 'black',
+							style: '',
+							value: ''
+						};
+						let html = '';
+						for (let i = 0; i < arr.length; ++i) {
+							let s = arr[i];
+							if(s.length < 1)
+								continue;
+							switch(s[0]) {
+								case 'r': last.color = 'color: black;'; last.style = ''; break;
+								case '0': last.color = 'color: black;'; break;
+								case '1': last.color = 'color: darkblue;'; break;
+								case '2': last.color = 'color: darkgreen;'; break;
+								case '3': last.color = 'color: darkaqua;'; break;
+								case '4': last.color = 'color: darkred;'; break;
+								case '5': last.color = 'color: darkpurple;'; break;
+								case '6': last.color = 'color: gold;'; break;
+								case '7': last.color = 'color: gray;'; break;
+								case '8': last.color = 'color: darkgray;'; break;
+								case '9': last.color = 'color: blue;'; break;
+								case 'a': last.color = 'color: green;'; break;
+								case 'b': last.color = 'color: aqua;'; break;
+								case 'c': last.color = 'color: red;'; break;
+								case 'd': last.color = 'color: lightpurple;'; break;
+								case 'e': last.color = 'color: yellow;'; break;
+								case 'f': last.color = 'color: white;'; break;
+								case 'k': last.style = 'background-color: black;'; break;
+								case 'l': last.style = 'font-weight: bold;'; break;
+								case 'm': last.style = 'text-decoration: line-through;'; break;
+								case 'n': last.style = 'font-text-decoration: line-through;'; break;
+								case 'o': last.style = 'font-style: italic;'; break;
+							}
+							if(s.length > 1) {
+								last.value = s.slice(1);
+								html += ('<scan style="' + last.color + last.style + '" >' + last.value + '</scan>' );
+							}
+						}						
+						result.description.text = html.replace('\n', '<br/>');
+					}
+				}
+				if(result.favicon) {
+					result.favicon = '<img src="' + result.favicon + '"></img>';
+				}
+				if(result.players) {
+					if(result.players.sample) {
+						if(result.players.online > result.players.sample.length)
+							result.players.sample.push({name: "..."})
+					}
+				}
+			}
+		};
+	
+		var showTime = function(div) {
+			let dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+			let that = this;
+			let delay = (new Date()).getTime();
+			delay = (Math.floor(delay / 1000) + 1) * 1000 - delay;
+			window.setTimeout(window.setInterval(function() {
+				let t = new Date();
+				let yyyy = String(t.getFullYear());		while(yyyy.length < 4) yyyy = '0' + yyyy;
+				let mm = String(t.getMonth() + 1);		while(mm.length < 2) mm = '0' + mm;
+				let dd = String(t.getDate());			while(dd.length < 2) dd = '0' + dd;
+				let www = dayOfWeek[t.getDay()];
+				let hh = String(t.getHours());			while(hh.length < 2) hh = '0' + hh;
+				let MM = String(t.getMinutes());		while(MM.length < 2) MM = '0' + MM;
+				let ss = String(t.getSeconds());		while(ss.length < 2) ss = '0' + ss;
+				div.innerHTML = yyyy + '-' + mm + '-' + dd + ' ' + www + ' ' + hh + ':' + MM + ':' + ss;
+			}, 1000), delay);
+		};
+		
+		window.onload = function() {
+		
+			Vue.component("input-select",{
+				data:function(){
+					return {
+						selectShow:false,
+						val:""
+					}
+				},
+				props:["placeholder", "list"],
+				template: '	<section class="input-select" >\
+								<input class="input-select-input" v-on:input="inputItem" v-on:click="selectShowC" v-bind:value="val" v-bind:placeholder="placeholder" ></input> \
+								<div class="input-select-list" v-if="selectShow" style="position: absolute; "> \
+									<div class="input-select-selection" v-for="item in list" v-on:click="selectItem" >{{item}}</div>\
+								</div> \
+							</section>',
+
+				methods:{
+					selectShowC: function() {
+						this.selectShow = !this.selectShow;
+					},
+					selectItem: function(event) {
+						this.val = event.target.textContent;
+						this.$emit('change', this.val);
+						this.selectShow = false;
+					},
+					inputItem: function(event) {
+						this.val = event.target.value;
+						this.$emit('change', this.val);
+						this.selectShow = false;
+					}
+				}
+			});
+		
+		
+			var app = new Vue({
+				el: '#app',
+				data: {
+					addr: window.location.toString(),
+					target: {},
+					query: '',
+					pingResult: {},
+					list1: ['gateway.craft.moe', '61.164.253.71'],
+					list2: ['25565', ''],
+					list3: ['1.12', '1.13'],
+				},
+				methods: {
+					
+					
+					
+					updateQuery: function(value, i) {
+						let query = '';
+						let target = this.target;
+						target[i] = (value == '' ? null : value);
+						if(target.host)
+							query += ('?host=' + target.host);
+						else
+							return (this.query = '');
+							
+						if(target.port)
+							query += ('&port=' + target.port);
+						if(target.version)
+							query += ('&version=' + target.version);
+						return (this.query = query);
+					},
+					updateQuery0: function(value) {
+						this.updateQuery(value, 'host');
+					},
+					updateQuery1: function(value) {
+						this.updateQuery(value, 'port');
+					},
+					updateQuery2: function(value) {
+						this.updateQuery(value, 'version');
+					},
+					ping: function() {
+						if(!this.query || this.query == '')
+							return;
+						let url = this.addr + this.query;
+						let that = this;
+						console.log(url);
+						if(debug)
+							url = "data.json";
+						$.getJSON(url , function(data) {
+							that.pingResult = data;
+							pingResultShow(that.pingResult);
+							console.log(data);
+						});
+					}
+				},
+			});
+			
+			showTime(document.getElementById('time'));
+		}
+	</script>
+	
+	<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js">
+	</script>
+	
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js">
+	</script>
+	
+</html>

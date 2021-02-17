@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Minecraft Ping</title>
+	</head>
+	<style>
+		.show {
+			background-color: grey;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<div id="time">
+			</div>
+			<div id="ping">
+				<div class="input">
+					<input id="in-host" placeholder="host"></input>
+					<input id="in-port" placeholder="port" type="number" min=0 max= 65535></input>
+					<input id="in-version" placeholder="version"></input>
+					<button id="btn-ping">query</button>
+					<div id="text-query"></div>
+				</div>
+				<div class="show" id="div-show">
+					
+				</div>
+			</div>
+		</div>
+		<div id="template-01" style="display: none;">
+			<div>Error: {{status-code}} {{status-text}}</div>
+		</div>
+		<div id="template-02" style="display: none;">
+			<div> {discription} </div>
+			<div> {favicon} </div>
+			<div> {{version.name}} ({{version.protocol}}) </div>
+			<div> {{players.online}} / {{players.max}} </div>
+			<ul>{for:players.sample}</ul>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	
+		var debug = false;
+	
+		var server = 'http://118.25.6.33:28080/ping';
+	
+		var pingResultShow = function(result) {
+			let rhtml = $("#template-02").html();
+			if(result) {
+				if(result.description) {
+					if(result.description.text) {
+						if(result.description.text[0] != '§')
+							result.description.text = '§r' + result.description.text;
+						let arr = result.description.text.split('§');
+						let last = {
+							color: 'black',
+							style: '',
+							value: ''
+						};
+						let html = '';
+						for (let i = 0; i < arr.length; ++i) {
+							let s = arr[i];
+							if(s.length < 1)
+								continue;
+							switch(s[0]) {
+								case 'r': last.color = 'color: black;'; last.style = ''; break;
+								case '0': last.color = 'color: black;'; break;
+								case '1': last.color = 'color: darkblue;'; break;
+								case '2': last.color = 'color: darkgreen;'; break;
+								case '3': last.color = 'color: darkaqua;'; break;
+								case '4': last.color = 'color: darkred;'; break;
+								case '5': last.color = 'color: darkpurple;'; break;
+								case '6': last.color = 'color: gold;'; break;
+								case '7': last.color = 'color: gray;'; break;
+								case '8': last.color = 'color: darkgray;'; break;
+								case '9': last.color = 'color: blue;'; break;
+								case 'a': last.color = 'color: green;'; break;
+								case 'b': last.color = 'color: aqua;'; break;
+								case 'c': last.color = 'color: red;'; break;
+								case 'd': last.color = 'color: lightpurple;'; break;
+								case 'e': last.color = 'color: yellow;'; break;
+								case 'f': last.color = 'color: white;'; break;
+								case 'k': last.style = 'background-color: black;'; break;
+								case 'l': last.style = 'font-weight: bold;'; break;
+								case 'm': last.style = 'text-decoration: line-through;'; break;
+								case 'n': last.style = 'font-text-decoration: line-through;'; break;
+								case 'o': last.style = 'font-style: italic;'; break;
+							}
+							if(s.length > 1) {
+								last.value = s.slice(1);
+								html += ('<scan style="' + last.color + last.style + '" >' + last.value + '</scan>' );
+							}
+						}						
+						rhtml = rhtml.replace('{discription}', html.replace('\n', '<br/>'));
+					}
+				}
+				if(result.favicon) {
+					rhtml = rhtml.replace('{favicon}', '<img src="' + result.favicon + '"></img>');
+				}
+				if(result.players) {
+					rhtml = rhtml.replace('{{players.online}}', result.players.online);
+					rhtml = rhtml.replace('{{players.max}}', result.players.max);
+					if(result.players.sample) {
+						if(result.players.online > result.players.sample.length)
+							result.players.sample.push({name: "..."});
+						let html = '';
+						let sample = result.players.sample;
+						for(let i = 0;i < sample.length; ++i)
+							html += ('<li>' + sample[i].name + '</li>');
+						rhtml = rhtml.replace('{for:players.sample}', html);
+					}
+					
+				}
+				if(result.version) {
+					rhtml = rhtml.replace('{{version.name}}', result.version.name);
+					rhtml = rhtml.replace('{{version.protocol}}', result.version.protocol);
+				}
+			}
+			return rhtml;
+		};
+	
+		var showTime = function(div) {
+			let dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+			let that = this;
+			let showing = function() {
+				let t = new Date();
+				let yyyy = String(t.getFullYear());		while(yyyy.length < 4) yyyy = '0' + yyyy;
+				let mm = String(t.getMonth() + 1);		while(mm.length < 2) mm = '0' + mm;
+				let dd = String(t.getDate());			while(dd.length < 2) dd = '0' + dd;
+				let www = dayOfWeek[t.getDay()];
+				let hh = String(t.getHours());			while(hh.length < 2) hh = '0' + hh;
+				let MM = String(t.getMinutes());		while(MM.length < 2) MM = '0' + MM;
+				let ss = String(t.getSeconds());		while(ss.length < 2) ss = '0' + ss;
+				div.innerHTML = yyyy + '-' + mm + '-' + dd + ' ' + www + ' ' + hh + ':' + MM + ':' + ss;
+			};
+			showing();
+			let delay = (new Date()).getTime();
+			delay = (Math.floor(delay / 1000) + 1) * 1000 - delay;
+			window.setTimeout(window.setInterval(showing, 1000), delay);
+		};
+		
+		window.onload = function() {
+			showTime(document.getElementById('time'));
+			$("#btn-ping").click(function() {
+				let query = '';
+				let target = {
+					host: $("#in-host").val(),
+					port: $("#in-port").val(),
+					version: $("#in-version").val()
+				}
+				if(target.host) {
+					query += ('?host=' + target.host);
+					if(target.port)
+						query += ('&port=' + target.port);
+					if(target.version)
+						query += ('&version=' + target.version);
+				}
+				$("#text-query").text(query);
+				if(query === '')
+					return;
+				$.ajax({
+					url: server + query + '&jsoncallback=?',
+					type: 'GET',
+					timeout: 2000,
+					dataType: 'jsonp'
+				})
+				.done(function(data) {
+					console.log(data);
+					$("#div-show").html(pingResultShow(data));
+				})
+				.fail(function(err) {
+					console.log(err);
+					$("#div-show").html($("#template-01").html().replace('{{status-code}}', err.status).replace('{{status-text}}', err.statusText));
+				});
+			});
+		};
+		
+/*		
+		window.onload = function() {
+			var app = new Vue({
+				el: '#app',
+				data: {
+					addr: window.location.toString(),
+					target: {},
+					query: '',
+					pingResult: {},
+				},
+				methods: {
+					
+					updateQuery: function(value, i) {
+						let query = '';
+						let target = this.target;
+						target[i] = (value == '' ? null : value);
+						if(target.host)
+							query += ('?host=' + target.host);
+						else
+							return (this.query = '');
+							
+						if(target.port)
+							query += ('&port=' + target.port);
+						if(target.version)
+							query += ('&version=' + target.version);
+						return (this.query = query);
+					},
+					ping: function() {
+						if(!this.query || this.query == '')
+							return;
+						let url = this.addr + this.query;
+						let that = this;
+						console.log(url);
+						if(debug)
+							url = "data.json";
+						$.getJSON(url , function(data) {
+							that.pingResult = data;
+							pingResultShow(that.pingResult);
+							console.log(data);
+						});
+					}
+				},
+			});
+			
+			
+		}*/
+	</script>
+	
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js">
+	</script>
+	
+</html>
