@@ -43,5 +43,10 @@ type: "links"
 
   <img src="https://flag.moe/avatar.bab2b7d4.jpg" alt="" width="50px" height="50px">
 
+- [映雪青帖](https://www.aoisnow.net/)
+
+  <img src="https://www.aoisnow.net/blog/wp-content/uploads/2015/09/avatar.jpg" alt="" width="50px" height="50px">
+
+  洛城东华
 
 _欢迎交换友链!可以[在github中提issue通知我](https://github.com/DWCarrot/DWCarrot.github.io/issues)_
