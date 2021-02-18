@@ -4,7 +4,7 @@
 # ---------------
 theme_color:
   enable: true
-  main: "#6CF"
+  main: "#111"
   paginator: "#222"
   button_hover: "#4BF"
   text_selection: "#333"
@@ -81,14 +81,14 @@ mathjax:
 # Please see doc for more details: https://molunerfinn.com/hexo-theme-melody-doc/third-party-support.html#katex
 # ---------------
 katex:
-  enable: false
+  enable: true
   cdn:
     css: https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css
   hide_scrollbar: true
 
 # Toggle fireworks (IE >= 10)
 # ---------------
-fireworks: true
+fireworks: false
 
 # Analysis
 # ---------------
@@ -268,7 +268,7 @@ ICP:
 # busuanzi count for PV / UV in site
 busuanzi:
   # count values only if the other configs are false
-  enable: true
+  enable: false
   # custom uv span for the whole site
   site_uv: true
   site_uv_header: <i class="fa fa-user"></i>
