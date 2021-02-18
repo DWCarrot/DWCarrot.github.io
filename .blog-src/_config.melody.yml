@@ -205,10 +205,10 @@ addThis:
 
 # Comments System
 # ---------------
-# disqus:
-#   enable: false
-#   shortname:
-#   count: 
+disqus:
+  enable: true
+  shortname: dwcarrot-blog-2021
+  count: 
 
 # laibili:
 # enable: false
