@@ -15,11 +15,9 @@ type: "links"
 
 ## 友链
 
-- [科洛](https://korostudio.cn) 
+- [科洛的blog](https://korostudio.cn) 
 
   <img src="https://file.korostudio.cn/illust_68988937_20181210_1140512_1569098650676.png" alt="" width="50px" height="50px">
-  
-  科洛的blog
   
 - [派兹](https://blw.moe) 
 
@@ -43,10 +41,10 @@ type: "links"
 
   <img src="https://flag.moe/avatar.bab2b7d4.jpg" alt="" width="50px" height="50px">
 
-- [映雪青帖](https://www.aoisnow.net/)
+- [映雪青帖](https://www.aoisnow.net/) | 洛城东华
 
   <img src="https://www.aoisnow.net/blog/wp-content/uploads/2015/09/avatar.jpg" alt="" width="50px" height="50px">
 
-  洛城东华
+  一位常在游客旁若无人的自言自语
 
 _欢迎交换友链!可以[在github中提issue通知我](https://github.com/DWCarrot/DWCarrot.github.io/issues)_
