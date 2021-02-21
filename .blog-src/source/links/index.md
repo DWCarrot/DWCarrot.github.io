@@ -47,4 +47,8 @@ type: "links"
 
   一位常在游客旁若无人的自言自语
 
+- [Citing's Blog](https://citingnutria.github.io/) | citingnutria
+
+  <img src="https://raw.githubusercontent.com/CitingNutria/image_hosting/master/avatar.jpg" alt="" width="50px" height="50px">
+
 _欢迎交换友链!可以[在github中提issue通知我](https://github.com/DWCarrot/DWCarrot.github.io/issues)_
