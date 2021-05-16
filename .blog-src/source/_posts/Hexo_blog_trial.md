@@ -55,7 +55,7 @@ registry = "https://registry.npm.taobao.org/"
 {% endblockquote %}
 
 一般来说给的教程[^2]是这样的……不过我似乎没法这样用：
-1. 暂时不考虑源文本的隐私性~~（毕竟我这玩意谁会看啊）~~
+1. 暂时不考虑源文本的隐私性 ~~（毕竟我这玩意谁会看啊）~~ 
 2. 个人github.io除了用于展示blog还作为一个简单的图片站（for bbs.nyaa.cat）以及一些自己写的工具性网页，不能直接挂载在根目录下。
 
 
@@ -78,7 +78,8 @@ post_asset_folder: true
 
 第三条用于添加图片。
 
-!> Tips: 发现 git 项目下子文件夹`.gitignore`可以对子文件夹下的文件修改做过滤
+__Tips:__ 发现 git 项目下子文件夹`.gitignore`可以对子文件夹下的文件修改做过滤
+
 
 ## TODO
 

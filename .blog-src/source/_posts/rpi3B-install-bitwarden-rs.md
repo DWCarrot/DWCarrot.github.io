@@ -23,7 +23,7 @@ uname -m
 
 然后宿主机选择wsl。虽然交叉编译工具有windows版的，但是试了一下似乎是不能用；又没有其他的linux系统的设备，于是就这样了。
 
-##安装基础Rust环境
+## 安装基础Rust环境
 
 首先，是wsl安装rust环境。这个[在官网上有](https://www.rust-lang.org/learn/get-started)。
 
