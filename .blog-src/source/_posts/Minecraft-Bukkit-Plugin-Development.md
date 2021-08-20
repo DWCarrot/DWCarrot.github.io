@@ -9,8 +9,6 @@ categories:
 date: 2021-05-14 11:28:21
 ---
 
-# Minecraft Bukkit 插件开发笔记
-
 接了NyaaCat/PlayerTimeTracker的活(顺便练练java工程开发)，然后发现软件工具都不怎么会用，调试环境搭建也花了不少时间。因此记录一下相关的过程。
 
 *着重点并不是bukkit插件怎么开发

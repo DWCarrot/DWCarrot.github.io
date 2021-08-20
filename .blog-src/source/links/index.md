@@ -25,7 +25,7 @@ type: "links"
 
 - [神楽坂 の 猫](https://kagurazaka.cat/)
 
-  <img src="#" alt="正在画.ico" width="64px" height="64px">
+  <img src="https://kagurazaka.cat/favicon.ico" alt="" width="64px" height="64px">
 
   卡諾妹妹和鵯凪姐姐的秘密空间…
   

@@ -8,8 +8,6 @@ categories:
 date: 2021-02-10 10:15:03
 ---
 
-# 写的一个voxelmap离线渲染器
-
 > voxelmap算是比较流行的小地图mod了~~以及另外一件事是journeymap咕得跟鹅叔一样~~，每次使用时会在本地留下缓存（而不是像journeymap一样直接保留图片）；因此写了一个工具把缓存文件渲染成图片；
 >
 > *其实voxelmap自带实时渲染功能，在voxelmap.properties中加入项Output Images:true即可，不过代价是fps降到1*
