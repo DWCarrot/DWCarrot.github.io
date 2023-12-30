@@ -8,7 +8,7 @@
     noSupport: 'The browser does not support'
   },
   hexoVersion: '5.4.0'
-} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#shamrock-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> Shamrock 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8linux%E7%B1%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%BD%BF%E7%94%A8docker"><span class="toc-number">1.1.</span> <span class="toc-text"> 在Linux类服务器上部署（使用docker）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xposed"><span class="toc-number">1.2.</span> <span class="toc-text"> Xposed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onebot"><span class="toc-number">1.3.</span> <span class="toc-text"> OneBot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openshamrock"><span class="toc-number">1.4.</span> <span class="toc-text"> OpenShamrock</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text"> 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85linux%E4%B8%8B%E7%9A%84android%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83-%E4%BD%BF%E7%94%A8-redroid"><span class="toc-number">2.1.</span> <span class="toc-text"> 安装Linux下的Android运行环境 - 使用 redroid[4]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E4%B8%8E-linux-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 安卓与 Linux 的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-android-%E5%86%85-shamrock-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text"> 安装 Android 内 Shamrock 运行环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="toc-number">3.</span> <span class="toc-text"> 性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%B8%8E%E9%99%90%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text"> docker 资源管理与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87"><span class="toc-number">3.2.</span> <span class="toc-text"> 设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%B0%8F%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text"> 运行小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#conclusion-todo"><span class="toc-number">4.</span> <span class="toc-text"> Conclusion &amp; TODO</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/blog/img/avatar1.png"></div><div class="author-info__name text-center">DWCarrot</div><div class="author-info__description text-center">DWCarrot's personal home page &amp; blog</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/blog/archives"><span class="pull-left">Articles</span><span class="pull-right">13</span></a><a class="author-info-articles__tags article-meta" href="/blog/tags"><span class="pull-left">Tags</span><span class="pull-right">21</span></a><a class="author-info-articles__categories article-meta" href="/blog/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/blog/">DWCarrot's 小站</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/blog">Home</a><a class="site-page" href="/blog/archives">Archives</a><a class="site-page" target="_blank" rel="noopener" href="https://melon.blue/@carota">Moments</a><a class="site-page" href="/blog/about">About</a><a class="site-page" href="/blog/links">Links</a><a class="site-page" href="/pages">Lab(Legacy)</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">QQ-bot 框架(服务)部署记录</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-12-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Coding/"> Coding</a></div><div class="article-container" id="post-content"><p>某位可爱<s>猫娘</s>群友打算写一个QQ-Telegram互联机器人。考虑逆向式QQ库的风控风险，有其他群友推荐使用 <a target="_blank" rel="noopener" href="https://github.com/whitechi73/OpenShamrock">OpenShamrock</a> 进行开发。考虑到 x86 转译效率大概不高，而手头正好有个 arm 设备（rock5b-rk3588)；于是参考 Shamrock 的教程，在这块arm开发板上搭建一个 Shamrock 服务给可爱群友用。</p>
+} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#shamrock-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> Shamrock 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8linux%E7%B1%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%BD%BF%E7%94%A8docker"><span class="toc-number">1.1.</span> <span class="toc-text"> 在Linux类服务器上部署（使用docker）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xposed"><span class="toc-number">1.2.</span> <span class="toc-text"> Xposed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onebot"><span class="toc-number">1.3.</span> <span class="toc-text"> OneBot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openshamrock"><span class="toc-number">1.4.</span> <span class="toc-text"> OpenShamrock</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text"> 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85linux%E4%B8%8B%E7%9A%84android%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83-%E4%BD%BF%E7%94%A8-redroid"><span class="toc-number">2.1.</span> <span class="toc-text"> 安装Linux下的Android运行环境 - 使用 redroid[4]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E4%B8%8E-linux-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 安卓与 Linux 的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-android-%E5%86%85-shamrock-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text"> 安装 Android 内 Shamrock 运行环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="toc-number">3.</span> <span class="toc-text"> 性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%B8%8E%E9%99%90%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text"> docker 资源管理与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87"><span class="toc-number">3.2.</span> <span class="toc-text"> 设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%B0%8F%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text"> 运行小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#conclusion-todo"><span class="toc-number">4.</span> <span class="toc-text"> Conclusion &amp; TODO</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/blog/img/avatar1.png"></div><div class="author-info__name text-center">DWCarrot</div><div class="author-info__description text-center">DWCarrot's personal home page &amp; blog</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/blog/archives"><span class="pull-left">Articles</span><span class="pull-right">13</span></a><a class="author-info-articles__tags article-meta" href="/blog/tags"><span class="pull-left">Tags</span><span class="pull-right">21</span></a><a class="author-info-articles__categories article-meta" href="/blog/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/blog/">DWCarrot's 小站</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/blog">Home</a><a class="site-page" href="/blog/archives">Archives</a><a class="site-page" target="_blank" rel="noopener" href="https://melon.blue/@carota">Moments</a><a class="site-page" href="/blog/about">About</a><a class="site-page" href="/blog/links">Links</a><a class="site-page" href="/pages">Lab(Legacy)</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">QQ-bot 框架(服务)部署记录</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-12-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Coding/"> Coding</a></div><div class="article-container" id="post-content"><p>某位可爱<s>猫娘</s>群友打算写一个QQ-Telegram互联机器人。因为逆向式QQ库的风控风险，有其他群友推荐使用 <a target="_blank" rel="noopener" href="https://github.com/whitechi73/OpenShamrock">OpenShamrock</a> 进行开发。考虑到 x86 转译效率大概不高，而手头正好有个 arm 设备（rock5b-rk3588)；于是参考 Shamrock 的教程，在这块arm开发板上搭建一个 Shamrock 服务给群友用。</p>
 <p><em>尽管过了一天之后，这个互联机器人项目由于考虑安全性问题被取消了，但是整个Shamrock 服务搭建过程还是颇有收获的，于是记录一下。</em></p>
 <h2 id="shamrock-简介"><a class="markdownIt-Anchor" href="#shamrock-简介"></a> Shamrock 简介</h2>
 <blockquote>
@@ -127,13 +127,19 @@
 <table>
 <thead>
 <tr>
-<th><code>--cpu-count</code></th>
-<th></th>
-<th></th>
-<th>CPU count (Windows only)</th>
+<th>Flag</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>--cpu-count</code></td>
+<td></td>
+<td></td>
+<td>CPU count (Windows only)</td>
+</tr>
 <tr>
 <td><code>--cpu-percent</code></td>
 <td></td>
@@ -193,13 +199,19 @@
 <table>
 <thead>
 <tr>
-<th><code>--memory</code></th>
-<th><code>-m</code></th>
-<th></th>
-<th>Memory limit</th>
+<th>Flag</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>--memory</code></td>
+<td><code>-m</code></td>
+<td></td>
+<td>Memory limit</td>
+</tr>
 <tr>
 <td><code>--memory-reservation</code></td>
 <td></td>
@@ -257,8 +269,7 @@
 <li>[ ] 更全面的理解一下 docker/k8s(k3s) 文件结构并规划如何映射磁盘路径</li>
 <li>[ ] 完善防火墙</li>
 </ul>
-<p><em>感谢一下从零开始指导我 Shamrock相关知识的瓜瓜、米米，解决了我容器技术相关疑惑的Neko，共同开发的可爱白天天，还有各个群友的陪伴！</em></p>
-<hr />
+<p><em>感谢一下从零开始指导我 Shamrock相关知识的瓜瓜、米米，解决了我容器技术相关疑惑的Neko，共同工作在开发bot的白天天，还有各个群友的陪伴！</em></p>
 <hr class="footnotes-sep" />
 <section class="footnotes">
 <ol class="footnotes-list">
