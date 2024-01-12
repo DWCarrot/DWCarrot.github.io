@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="QQ-bot 框架(服务)部署记录"><meta name="keywords" content="Android,container,xposed"><meta name="author" content="DWCarrot"><meta name="copyright" content="DWCarrot"><title>QQ-bot 框架(服务)部署记录 | DWCarrot's 小站</title><link rel="shortcut icon" href="/blog/blog/img/favicon.ico"><link rel="stylesheet" href="/blog/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="QQ-bot 框架(服务)部署记录"><meta name="keywords" content="Android,container,xposed"><meta name="author" content="DWCarrot"><meta name="copyright" content="DWCarrot"><title>QQ-bot 框架(服务)部署记录 | DWCarrot's 小站</title><link rel="shortcut icon" href="/blog/blog/img/favicon.ico"><link rel="stylesheet" href="/blog/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
   root: '/blog/',
   algolia: undefined,
   localSearch: undefined,
@@ -7,74 +7,67 @@
     error: 'Copy error',
     noSupport: 'The browser does not support'
   },
-  hexoVersion: '5.4.0'
-} </script><meta name="generator" content="Hexo 5.4.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#shamrock-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> Shamrock 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8linux%E7%B1%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%BD%BF%E7%94%A8docker"><span class="toc-number">1.1.</span> <span class="toc-text"> 在Linux类服务器上部署（使用docker）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xposed"><span class="toc-number">1.2.</span> <span class="toc-text"> Xposed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onebot"><span class="toc-number">1.3.</span> <span class="toc-text"> OneBot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openshamrock"><span class="toc-number">1.4.</span> <span class="toc-text"> OpenShamrock</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text"> 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85linux%E4%B8%8B%E7%9A%84android%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83-%E4%BD%BF%E7%94%A8-redroid"><span class="toc-number">2.1.</span> <span class="toc-text"> 安装Linux下的Android运行环境 - 使用 redroid[4]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E4%B8%8E-linux-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 安卓与 Linux 的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-android-%E5%86%85-shamrock-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text"> 安装 Android 内 Shamrock 运行环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="toc-number">3.</span> <span class="toc-text"> 性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%B8%8E%E9%99%90%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text"> docker 资源管理与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87"><span class="toc-number">3.2.</span> <span class="toc-text"> 设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%B0%8F%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text"> 运行小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#conclusion-todo"><span class="toc-number">4.</span> <span class="toc-text"> Conclusion &amp; TODO</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/blog/img/avatar1.png"></div><div class="author-info__name text-center">DWCarrot</div><div class="author-info__description text-center">DWCarrot's personal home page &amp; blog</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/blog/archives"><span class="pull-left">Articles</span><span class="pull-right">13</span></a><a class="author-info-articles__tags article-meta" href="/blog/tags"><span class="pull-left">Tags</span><span class="pull-right">21</span></a><a class="author-info-articles__categories article-meta" href="/blog/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/blog/">DWCarrot's 小站</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/blog">Home</a><a class="site-page" href="/blog/archives">Archives</a><a class="site-page" target="_blank" rel="noopener" href="https://melon.blue/@carota">Moments</a><a class="site-page" href="/blog/about">About</a><a class="site-page" href="/blog/links">Links</a><a class="site-page" href="/pages">Lab(Legacy)</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">QQ-bot 框架(服务)部署记录</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-12-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Coding/"> Coding</a></div><div class="article-container" id="post-content"><p>某位可爱<s>猫娘</s>群友打算写一个QQ-Telegram互联机器人。因为逆向式QQ库的风控风险，有其他群友推荐使用 <a target="_blank" rel="noopener" href="https://github.com/whitechi73/OpenShamrock">OpenShamrock</a> 进行开发。考虑到 x86 转译效率大概不高，而手头正好有个 arm 设备（rock5b-rk3588)；于是参考 Shamrock 的教程，在这块arm开发板上搭建一个 Shamrock 服务给群友用。</p>
+  hexoVersion: '5.4.2'
+} </script><meta name="generator" content="Hexo 5.4.2"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shamrock-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Shamrock 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8Linux%E7%B1%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2%EF%BC%88%E4%BD%BF%E7%94%A8docker%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">在Linux类服务器上部署（使用docker）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Xposed"><span class="toc-number">1.2.</span> <span class="toc-text">Xposed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OneBot"><span class="toc-number">1.3.</span> <span class="toc-text">OneBot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenShamrock"><span class="toc-number">1.4.</span> <span class="toc-text">OpenShamrock</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Linux%E4%B8%8B%E7%9A%84Android%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83-%E4%BD%BF%E7%94%A8-redroid-4"><span class="toc-number">2.1.</span> <span class="toc-text">安装Linux下的Android运行环境 - 使用 redroid^4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E4%B8%8E-Linux-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.</span> <span class="toc-text">安卓与 Linux 的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Android-%E5%86%85-Shamrock-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.</span> <span class="toc-text">安装 Android 内 Shamrock 运行环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98"><span class="toc-number">3.</span> <span class="toc-text">性能调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%B8%8E%E9%99%90%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text">docker 资源管理与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87"><span class="toc-number">3.2.</span> <span class="toc-text">设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%B0%8F%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text">运行小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion-TODO"><span class="toc-number">4.</span> <span class="toc-text">Conclusion &amp; TODO</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/blog/img/avatar1.png"></div><div class="author-info__name text-center">DWCarrot</div><div class="author-info__description text-center">DWCarrot's personal home page &amp; blog</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/blog/archives"><span class="pull-left">Articles</span><span class="pull-right">13</span></a><a class="author-info-articles__tags article-meta" href="/blog/tags"><span class="pull-left">Tags</span><span class="pull-right">21</span></a><a class="author-info-articles__categories article-meta" href="/blog/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/blog/">DWCarrot's 小站</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/blog">Home</a><a class="site-page" href="/blog/archives">Archives</a><a class="site-page" target="_blank" rel="noopener" href="https://melon.blue/@carota">Moments</a><a class="site-page" href="/blog/about">About</a><a class="site-page" href="/blog/links">Links</a><a class="site-page" href="/pages">Lab(Legacy)</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">QQ-bot 框架(服务)部署记录</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2023-12-30</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Coding/"> Coding</a></div><div class="article-container" id="post-content"><p>某位可爱<del>猫娘</del>群友打算写一个QQ-Telegram互联机器人。因为逆向式QQ库的风控风险，有其他群友推荐使用 <a target="_blank" rel="noopener" href="https://github.com/whitechi73/OpenShamrock">OpenShamrock</a> 进行开发。考虑到 x86 转译效率大概不高，而手头正好有个 arm 设备（rock5b-rk3588)；于是参考 Shamrock 的教程，在这块arm开发板上搭建一个 Shamrock 服务给群友用。</p>
 <p><em>尽管过了一天之后，这个互联机器人项目由于考虑安全性问题被取消了，但是整个Shamrock 服务搭建过程还是颇有收获的，于是记录一下。</em></p>
-<h2 id="shamrock-简介"><a class="markdownIt-Anchor" href="#shamrock-简介"></a> Shamrock 简介</h2>
-<blockquote>
+<h2 id="Shamrock-简介"><a href="#Shamrock-简介" class="headerlink" title="Shamrock 简介"></a>Shamrock 简介</h2><blockquote>
 <p>☘ 基于 Xposed 实现 OneBot 标准的 QQ 机器人框架，原作者<a target="_blank" rel="noopener" href="https://github.com/fuqiuluo"><strong>fuqiuluo</strong></a>已脱离开发，接下来由白池接手哦！本项目为OpenShamrock，不会有任何收费行为，欢迎大家的加入！</p>
 </blockquote>
 <blockquote>
-<h3 id="在linux类服务器上部署使用docker"><a class="markdownIt-Anchor" href="#在linux类服务器上部署使用docker"></a> 在Linux类服务器上部署（使用docker）</h3>
-<p>这个选择过于多元化，你可以使用redroid、docker-android，需要注意的是部分框架要求开起虚拟化才能使用哦！目前依旧是采用Lspatch+Shamrock方案在docker部署，因为安装magisk类需要修补镜像，难以实现。</p>
+<h3 id="在Linux类服务器上部署（使用docker）"><a href="#在Linux类服务器上部署（使用docker）" class="headerlink" title="在Linux类服务器上部署（使用docker）"></a>在Linux类服务器上部署（使用docker）</h3><p>这个选择过于多元化，你可以使用redroid、docker-android，需要注意的是部分框架要求开起虚拟化才能使用哦！目前依旧是采用Lspatch+Shamrock方案在docker部署，因为安装magisk类需要修补镜像，难以实现。</p>
 </blockquote>
-<p><em>这个东西<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，对初学者（比如我）来说基本上等于没说，感谢群友指点，查到了一些资料。</em></p>
-<h3 id="xposed"><a class="markdownIt-Anchor" href="#xposed"></a> Xposed</h3>
-<p>Xposed是Android平台上的一个常用的HOOK框架，可以在不改变程序源代码的前提下，影响程序的运行。一个支持Xposed的Android应用程序被称为一个Xposed模块，用户可以在Xposed中安装各种各样的Xposed模块。<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p><em>这个东西<a target="_blank" rel="noopener" href="https://whitechi73.github.io/OpenShamrock/guide/getting-started.html">^1</a>，对初学者（比如我）来说基本上等于没说，感谢群友指点，查到了一些资料。</em></p>
+<h3 id="Xposed"><a href="#Xposed" class="headerlink" title="Xposed"></a>Xposed</h3><p>Xposed是Android平台上的一个常用的HOOK框架，可以在不改变程序源代码的前提下，影响程序的运行。一个支持Xposed的Android应用程序被称为一个Xposed模块，用户可以在Xposed中安装各种各样的Xposed模块。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58442938">^2</a></p>
 <p>Xposed模块使用Java语言开发，这意味着开发人员可以使用Android Studio开发一个自己的Xposed模块，就像开发一个Android应用程序一样简单。</p>
 <p>实际搭建 Shamrock 服务使用的是 <a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPatch">LSPatch</a>，这是 Xposed的一个变种；安装它无需 root 是最大的优势，不过相对而言需要修改应用的apk。</p>
-<h3 id="onebot"><a class="markdownIt-Anchor" href="#onebot"></a> OneBot</h3>
-<p><strong>OneBot</strong> 是一个聊天机器人应用接口标准，旨在统一不同聊天平台上的机器人应用开发接口，使开发者只需编写一次业务逻辑代码即可应用到多种机器人平台。<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></p>
+<h3 id="OneBot"><a href="#OneBot" class="headerlink" title="OneBot"></a>OneBot</h3><p><strong>OneBot</strong> 是一个聊天机器人应用接口标准，旨在统一不同聊天平台上的机器人应用开发接口，使开发者只需编写一次业务逻辑代码即可应用到多种机器人平台。<a target="_blank" rel="noopener" href="https://github.com/botuniverse/onebot">^3</a></p>
 <p><em>和本篇并无关系的思考：感觉之前的 Minecraft 通信插件的协议可以拿这个改改？算TODO了。</em></p>
-<h3 id="openshamrock"><a class="markdownIt-Anchor" href="#openshamrock"></a> OpenShamrock</h3>
-<p>从服务来说，实际上是一个类似于 <a href="tdlib/telegram-bot-api">tdlib/telegram-bot-api</a> 的服务，本质是把qq客户端行为转变成bot api调用服务行为。</p>
+<h3 id="OpenShamrock"><a href="#OpenShamrock" class="headerlink" title="OpenShamrock"></a>OpenShamrock</h3><p>从服务来说，实际上是一个类似于 <a href="tdlib/telegram-bot-api">tdlib&#x2F;telegram-bot-api</a> 的服务，本质是把qq客户端行为转变成bot api调用服务行为。</p>
 <p>从实现原理上，这个是一个直接hook android qq客户端的服务，直接从客户端获取聊天信息。因为使用标准客户端自然也不用担心因为协议暗桩等问题被风控（但是会因为聊天内容被风控）。</p>
 <p>所以实际上是需要做什么呢？需要在 Android 系统里面安装一个（加装了hook的）qq 客户端，安装 LSPatch 框架，再安装 Shamrock 模块；Shamrock 开启一个对外服务，拦截qq的消息和事件并对外转发，以及收到外部消息后操作qq发出到群里。</p>
 <p>当然在这之前，需要有一个 Android 系统，比如 Android 物理机（手机），虚拟机（模拟器）， Android 容器等等</p>
-<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
-<h3 id="安装linux下的android运行环境-使用-redroid"><a class="markdownIt-Anchor" href="#安装linux下的android运行环境-使用-redroid"></a> 安装Linux下的Android运行环境 - 使用 redroid<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></h3>
-<blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装Linux下的Android运行环境-使用-redroid-4"><a href="#安装Linux下的Android运行环境-使用-redroid-4" class="headerlink" title="安装Linux下的Android运行环境 - 使用 redroid^4"></a>安装Linux下的Android运行环境 - 使用 redroid<a target="_blank" rel="noopener" href="https://github.com/remote-android/redroid-doc">^4</a></h3><blockquote>
 <p><em>redroid</em> (<em>Re</em>mote an<em>Droid</em>) is a GPU accelerated AIC (Android In Cloud) solution. You can boot many instances in Linux host (<code>Docker</code>, <code>podman</code>, <code>k8s</code> etc.). <em>redroid</em> supports both <code>arm64</code> and <code>amd64</code> architectures. <em>redroid</em> is suitable for Cloud Gaming, Virtualise Phones, Automation Test and more.</p>
 </blockquote>
-<p><em>关于 Android 容器为什么可以运行 Android 应用这一点，我并不是特别明白。查阅一些资料：<em><strong>以下仅以 arm64 为例</strong></em>，很明显在 Linux 发行版是不能直接运行 Android 应用的<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>；</em></p>
+<p><em>关于 Android 容器为什么可以运行 Android 应用这一点，我并不是特别明白。查阅一些资料：___以下仅以 arm64 为例___，很明显在 Linux 发行版是不能直接运行 Android 应用的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144508175">^5</a>；</em></p>
 <blockquote>
-<h3 id="安卓与-linux-的关系"><a class="markdownIt-Anchor" href="#安卓与-linux-的关系"></a> <strong>安卓与 Linux 的关系</strong></h3>
-<p>安卓实际上用到的是 Linux 的内核。因为 Linux 本身是开源的，所以谷歌的工程师们选择了在 Linux 内核基础之上做裁剪定制，这样他们就不需要从头开始来开发一个全新的系统。BTW，这在大厂当中也是一种比较常用的做法，比如 Playstation 的操作系统用的是 FreeBSD的内核，XBox 用的是 Windows NT 的内核。在安卓的手机上，在系统信息中你可以看到 Linux 内核的版本。</p>
+<h3 id="安卓与-Linux-的关系"><a href="#安卓与-Linux-的关系" class="headerlink" title="安卓与 Linux 的关系"></a><strong>安卓与 Linux 的关系</strong></h3><p>安卓实际上用到的是 Linux 的内核。因为 Linux 本身是开源的，所以谷歌的工程师们选择了在 Linux 内核基础之上做裁剪定制，这样他们就不需要从头开始来开发一个全新的系统。BTW，这在大厂当中也是一种比较常用的做法，比如 Playstation 的操作系统用的是 FreeBSD的内核，XBox 用的是 Windows NT 的内核。在安卓的手机上，在系统信息中你可以看到 Linux 内核的版本。</p>
 <p>…</p>
 <p><strong>2) 可以在Linux 桌面上运行安卓的应用吗？</strong></p>
-<p>因为其他 Linux 发行版本也没有 Dalvik / ART，所以安卓的应用在 Linux 桌面上不能直接运行。不过我们只需要将 Dalvik / ART 移植到 Linux 桌面环境就可以了。正是基于这个原理，市场上有很多安卓手机模拟器，不仅可以用在 Linux 桌面，还可以用在 Windows 以及 Mac 上。</p>
+<p>因为其他 Linux 发行版本也没有 Dalvik &#x2F; ART，所以安卓的应用在 Linux 桌面上不能直接运行。不过我们只需要将 Dalvik &#x2F; ART 移植到 Linux 桌面环境就可以了。正是基于这个原理，市场上有很多安卓手机模拟器，不仅可以用在 Linux 桌面，还可以用在 Windows 以及 Mac 上。</p>
 </blockquote>
 <p><em>所以可以推测，redroid 是共用了宿主机的内核，编译了一个 Android 上层环境，patch了一些远程模块和 gpu 模块，于是可以在这个环境下运行 Android 应用。</em></p>
 <p>安装 redroid 其实很容易。</p>
 <p>首先确保 Linux 内核的两个 kernel features 是启用的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ grep binder /proc/filesystem</span><br><span class="line">nodev binder</span><br><span class="line">$ grep ashmem /proc/misc</span><br><span class="line">122 ashmem</span><br></pre></td></tr></table></figure>
+
 <p>这个与官网的教程略有不同。官网上使用 <code>modprobe</code> 去检测是否存在这两个模块。然而请教 rock5b 群友得知，rk3588 主线 armbian 镜像内核(&gt;5.10)默认是带这两个模块的，但是 <code>modprobe</code>并不能检测到。</p>
 <p><em>查资料的时候看到一个东西，记录一下</em></p>
 <blockquote>
-<p>ashmem(注:主线内核在5.18 drop了这个模块，官方的替代方案是memfd，而且redroid也提供了androidboot.use_memfd=1来启用memfd支持，所以理论上可以不编译这个模块，不过这里稳妥起见，还是编译进去了)</p>
+<p>ashmem(注:主线内核在5.18 drop了这个模块，官方的替代方案是memfd，而且redroid也提供了androidboot.use_memfd&#x3D;1来启用memfd支持，所以理论上可以不编译这个模块，不过这里稳妥起见，还是编译进去了)</p>
 </blockquote>
 <p>然后直接拉取镜像运行即可。</p>
 <p>此处使用 docker，选择 <code>redroid/redroid:13.0.0-latest</code> :</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 这并不是最终镜像</span></span><br><span class="line">$ sudo docker run -itd \ <span class="comment"># Allocate a pseudo-TTY &amp; Keep STDIN open even if not attached &amp; 	Run container in background and print container ID</span></span><br><span class="line">    --rm \ <span class="comment"># Automatically remove the container when it exits </span></span><br><span class="line">    --privileged \ <span class="comment"># 	Give extended privileges to this container</span></span><br><span class="line">    -v /home/data:/data \ <span class="comment"># Bind mount a volume: /home/data at host to /data at container </span></span><br><span class="line">    -p 35555:5555 \ <span class="comment"># Publish a container&#x27;s port(s) to the host: export 5555 adb port in container to 35555 at host</span></span><br><span class="line">    redroid/redroid:13.0.0-latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 这并不是最终镜像</span></span><br><span class="line">$ sudo docker run -itd \ <span class="comment"># Allocate a pseudo-TTY &amp; Keep STDIN open even if not attached &amp; 	Run container in background and print container ID</span></span><br><span class="line">    --<span class="built_in">rm</span> \ <span class="comment"># Automatically remove the container when it exits </span></span><br><span class="line">    --privileged \ <span class="comment"># 	Give extended privileges to this container</span></span><br><span class="line">    -v /home/data:/data \ <span class="comment"># Bind mount a volume: /home/data at host to /data at container </span></span><br><span class="line">    -p 35555:5555 \ <span class="comment"># Publish a container&#x27;s port(s) to the host: export 5555 adb port in container to 35555 at host</span></span><br><span class="line">    redroid/redroid:13.0.0-latest</span><br></pre></td></tr></table></figure>
+
 <p>几个 Tips ：</p>
 <ol>
-<li>
-<p><code>/data</code> 是安卓系统里面总的数据文件夹 (Files 的根目录是 /sdcard)，似乎所有安装的 apk 等信息都在里面；因此将它映射出去可以不用每次都重新安装 apk</p>
+<li><p><code>/data</code> 是安卓系统里面总的数据文件夹 (Files 的根目录是 &#x2F;sdcard)，似乎所有安装的 apk 等信息都在里面；因此将它映射出去可以不用每次都重新安装 apk</p>
 </li>
-<li>
-<p>内部 5555 端口是 adb 调试端口；</p>
+<li><p>内部 5555 端口是 adb 调试端口；</p>
 </li>
-<li>
-<p><code>privileged</code> 是一个很特殊的参数，让容器内的 root 和主机上的 root 权限相同；如果不加的话 容器内的 root 仅相当于主机的一个普通权限<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<li><p><code>privileged</code> 是一个很特殊的参数，让容器内的 root 和主机上的 root 权限相同；如果不加的话 容器内的 root 仅相当于主机的一个普通权限<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/run/#privileged">^6</a>。</p>
 <blockquote>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -t -i --rm ubuntu bash</span></span><br><span class="line">root@bc338942ef20:/# mount -t tmpfs none /mnt</span><br><span class="line">mount: permission denied</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -t -i --<span class="built_in">rm</span> ubuntu bash</span></span><br><span class="line">root@bc338942ef20:/# mount -t tmpfs none /mnt</span><br><span class="line">mount: permission denied</span><br></pre></td></tr></table></figure>
+
 <p>This <em>doesn’t</em> work, because by default, Docker drops most potentially dangerous kernel capabilities, including <code>CAP_SYS_ADMIN</code> (which is required to mount filesystems). However, the <code>--privileged</code> flag allows it to run:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -t -i --privileged ubuntu bash</span></span><br><span class="line">root@50e3f57e16e6:/# mount -t tmpfs none /mnt</span><br><span class="line">root@50e3f57e16e6:/# df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">none            1.9G     0  1.9G   0% /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -t -i --privileged ubuntu bash</span></span><br><span class="line">root@50e3f57e16e6:/# mount -t tmpfs none /mnt</span><br><span class="line">root@50e3f57e16e6:/# df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">none            1.9G     0  1.9G   0% /mnt</span><br></pre></td></tr></table></figure>
+
 <p>The <code>--privileged</code> flag gives <em>all</em> capabilities to the container, and it also lifts all the limitations enforced by the <code>device</code> cgroup controller. In other words, the container can then do almost everything that the host can do. This flag exists to allow special use-cases, like running Docker within Docker.</p>
 </blockquote>
 <p>实际使用中，<code>privileged</code> 是个很危险的 options，应当被尽量避免。</p>
 <p>但是 redroid 应该是有对 host 设备访问的需求的，直接去除该参数会导致无法启动。</p>
-<p><em><strong>[TODO]</strong></em> <em>想试试加哪些 capabilities<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup> 可以让redroid 跑起来</em></p>
+<p><em><strong>[TODO]</strong></em> <em>想试试加哪些 capabilities<a target="_blank" rel="noopener" href="https://www.redhat.com/sysadmin/privileged-flag-container-engines">^7</a> 可以让redroid 跑起来</em></p>
 <blockquote>
 <p>Linux capabilities</p>
 <p><em>Linux capabilities</em> are a mechanism for limiting the power of root. The Linux kernel splits the privileges of root (superuser) into a series of distinct units, called capabilities. In the case of rootless  containers, container engines still use user namespace capabilities.  These capabilities limit the power of root within the user namespace.  Container engines launch the containers with a limited number of  namespaces enabled to control what goes on inside of the container by  default.</p>
@@ -82,19 +75,15 @@
 </li>
 </ol>
 <p>最后，安装 <a target="_blank" rel="noopener" href="https://github.com/Genymobile/scrcpy">scrcpy</a> Android 远程桌面 连接 <code>&lt;host-ip&gt;:35555</code> 就可以看到里面的 Android 界面了</p>
-<h3 id="安装-android-内-shamrock-运行环境"><a class="markdownIt-Anchor" href="#安装-android-内-shamrock-运行环境"></a> 安装 Android 内 Shamrock 运行环境</h3>
-<p><em>这部分就是单纯的安装步骤就是了</em></p>
+<h3 id="安装-Android-内-Shamrock-运行环境"><a href="#安装-Android-内-Shamrock-运行环境" class="headerlink" title="安装 Android 内 Shamrock 运行环境"></a>安装 Android 内 Shamrock 运行环境</h3><p><em>这部分就是单纯的安装步骤就是了</em></p>
 <ol>
-<li>
-<p>把 QQ 的 apk 传上去（并不是安装）</p>
+<li><p>把 QQ 的 apk 传上去（并不是安装）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./adb push /path/to/QQ/Android_8.9.68.11565_64.apk /sdcard</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>安装 LSPatch</p>
+<li><p>安装 LSPatch</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./adb install /path/to/lspatch_installer/manager-v0.6-398-release.apk</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>安卓里面打开 LSPatch</p>
+<li><p>安卓里面打开 LSPatch</p>
 <p>(从下往上滑可以打开所有应用列表)</p>
 <p>打开 LSPatch 并在管理页面选择 + 新建修补，从存储目录选择 QQ apk；</p>
 <p>第一次按 + 会先让你选个路径放修补过的 apk；</p>
@@ -102,26 +91,19 @@
 <p>其他配置保持默认，然后点击<code>开始修补</code>，修补完成后会提示安装(如果已经安装会提示卸载)；</p>
 <p>这边又有个小坑：修完了之后 redroid 环境其实不太好让 LSPatch 直接装，要点 return 然后自己去路径下面找apk装；</p>
 </li>
-<li>
-<p>安装修补好的 QQ apk 并打开(可以不登录)</p>
+<li><p>安装修补好的 QQ apk 并打开(可以不登录)</p>
 </li>
-<li>
-<p>安装 Shamrock 模块</p>
+<li><p>安装 Shamrock 模块</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./adb install /path/to/lspatch_installer/Shamrock-v1.0.7-dev.6201d12-arm64.apk</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>在 LSPatch  <code>管理</code>页面点击修补好的 QQ ，选择 <code>模块作用域</code> 勾选上 Shamrock 模块然后保存；</p>
+<li><p>在 LSPatch  <code>管理</code>页面点击修补好的 QQ ，选择 <code>模块作用域</code> 勾选上 Shamrock 模块然后保存；</p>
 </li>
-<li>
-<p>启动 Shamrock 并重新启动 QQ 客户端，此时 Shamrock 会显示已激活；</p>
+<li><p>启动 Shamrock 并重新启动 QQ 客户端，此时 Shamrock 会显示已激活；</p>
 </li>
-<li>
-<p>现在整个服务已经开始运行了，进入 Shamrock  配置端口等参数；</p>
+<li><p>现在整个服务已经开始运行了，进入 Shamrock  配置端口等参数；</p>
 </li>
 </ol>
-<h2 id="性能调优"><a class="markdownIt-Anchor" href="#性能调优"></a> 性能调优</h2>
-<h3 id="docker-资源管理与限制"><a class="markdownIt-Anchor" href="#docker-资源管理与限制"></a> docker 资源管理与限制</h3>
-<p>部署结束了以后，监测资源占用峰值能达到 <code>CPU 700% Mem 2.2GiB</code> <em>不愧是你啊QQ</em>;</p>
+<h2 id="性能调优"><a href="#性能调优" class="headerlink" title="性能调优"></a>性能调优</h2><h3 id="docker-资源管理与限制"><a href="#docker-资源管理与限制" class="headerlink" title="docker 资源管理与限制"></a>docker 资源管理与限制</h3><p>部署结束了以后，监测资源占用峰值能达到 <code>CPU 700%  Mem 2.2GiB</code> <em>不愧是你啊QQ</em>;</p>
 <p>为了避免过热以及确保整个服务器不要崩溃，感觉需要对容器的资源进行一定的限制。</p>
 <p>docker 本身有限制 cpu 使用率和内存使用率的接口：</p>
 <table>
@@ -133,8 +115,7 @@
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>--cpu-count</code></td>
 <td></td>
 <td></td>
@@ -194,8 +175,7 @@
 <td></td>
 <td>MEMs in which to allow execution (0-3, 0,1)</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <table>
 <thead>
 <tr>
@@ -205,8 +185,7 @@
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>--memory</code></td>
 <td><code>-m</code></td>
 <td></td>
@@ -230,65 +209,47 @@
 <td><code>-1</code></td>
 <td>Tune container memory swappiness (0 to 100)</td>
 </tr>
-</tbody>
-</table>
-<p>CPU 的限制先放一边；</p>
+</tbody></table>
+<p>CPU 的限制先放一边； </p>
 <p>内存限制其实是给了一个最大值，超过最大值会 <code>OOMkill</code> (或者<code>hang</code>住) ；</p>
 <p>但是在这种情况下实并不能很好地完成任务。原因是，QQ自然自己完全不可能去调整自己的内存使用，不过已知的事实是QQ在2G内存的手机上也可以勉强使用，那我这里不得不让内部的 Android 系统(指ART等)去“提前”调用 swap 或者改变内存策略来以牺牲性能为代价维持整个服务的运转。但是如何欺骗系统呢？</p>
 <p>询问了一下群友，这似乎是一个非常……不规范的想法：</p>
 <blockquote>
 <p>容器里面跑的进程实际上就是一个分割了上下文的普通「进程」</p>
 <p>它是通过 cgroup 和划分 namespace 来实现的</p>
-<p>你现在问的这个问题是虚拟化 vm 的行为，而非 docker/containerd 的</p>
+<p>你现在问的这个问题是虚拟化 vm 的行为，而非 docker&#x2F;containerd 的</p>
 <p>那这个时候，如何让一个容器里面的 kernel 和进程能访问到的东西表现得像是在一个 vm 里面的呢</p>
-<p>我还真不知道，也许你亲自给他挂一堆自己修改过的 /proc /run /var 下面的 meminfo 的文件，也许是可以让它觉得它自己被限制的</p>
+<p>我还真不知道，也许你亲自给他挂一堆自己修改过的 &#x2F;proc &#x2F;run &#x2F;var 下面的 meminfo 的文件，也许是可以让它觉得它自己被限制的</p>
 <p>也许，但我不清楚，我并不熟悉虚拟化技术实际背后的原理，感觉需要创建一个完全模拟出来的一切物理设备才行</p>
 <p>from @Neko Ayaka</p>
 </blockquote>
 <p>但是以中间那个 idea 为线索，还真发现了有一个软件模块可以做到这一点：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/lxc/lxcfs#using-with-docker">lxcfs</a> 可以自动检测容器的运行限制 并将限制反映在&quot;伪造&quot;的系统信息中；只要容器内读取时用 &quot;伪造&quot;的系统信息接口代替真正的，就可以做到“欺骗”容器内的 Android 系统。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -m 256m --memory-swap 256m \</span><br><span class="line">      -v /var/lib/lxcfs/proc/cpuinfo:/proc/cpuinfo:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/diskstats:/proc/diskstats:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/meminfo:/proc/meminfo:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/<span class="built_in">stat</span>:/proc/<span class="built_in">stat</span>:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/swaps:/proc/swaps:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/uptime:/proc/uptime:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/slabinfo:/proc/slabinfo:rw \</span><br><span class="line">      -v /var/lib/lxcfs/sys/devices/system/cpu:/sys/devices/system/cpu:rw \</span><br><span class="line">      ubuntu:18.04 /bin/bash</span><br></pre></td></tr></table></figure>
-<h3 id="设备"><a class="markdownIt-Anchor" href="#设备"></a> 设备</h3>
-<p>redroid 宣称支持 gpu 加速。rk3588 带一个 gpu 支持 mali 似乎可以用于加速，但是实际上似乎没有效果；</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lxc/lxcfs#using-with-docker">lxcfs</a> 可以自动检测容器的运行限制 并将限制反映在”伪造”的系统信息中；只要容器内读取时用 “伪造”的系统信息接口代替真正的，就可以做到“欺骗”容器内的 Android 系统。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -m 256m --memory-swap 256m \</span><br><span class="line">      -v /var/lib/lxcfs/proc/cpuinfo:/proc/cpuinfo:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/diskstats:/proc/diskstats:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/meminfo:/proc/meminfo:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/stat:/proc/stat:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/swaps:/proc/swaps:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/uptime:/proc/uptime:rw \</span><br><span class="line">      -v /var/lib/lxcfs/proc/slabinfo:/proc/slabinfo:rw \</span><br><span class="line">      -v /var/lib/lxcfs/sys/devices/system/cpu:/sys/devices/system/cpu:rw \</span><br><span class="line">      ubuntu:18.04 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h3><p>redroid 宣称支持 gpu 加速。rk3588 带一个 gpu 支持 mali 似乎可以用于加速，但是实际上似乎没有效果；</p>
 <p>翻阅 redroid repo issues 倒是找到一篇正正好相关的：</p>
 <blockquote>
 <p>问题已经解决，感谢回答。原因是设备节点 <code>/dev/mali0</code>，在宿主机中 <code>ls -i /dev/mali0</code>  inode id 和容器中的 inode id不一致导致的。</p>
 <p>运行时添加 <code>--mount=type=bind,source=/dev/mali0,destination=/dev/mali0</code></p>
 </blockquote>
 <p><em>姑且先加上了，并没有验证</em></p>
-<h3 id="运行小结"><a class="markdownIt-Anchor" href="#运行小结"></a> 运行小结</h3>
-<p>最后的启动命令为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -itd --rm --privileged \</span><br><span class="line">	--cpus 2 \</span><br><span class="line">	-m 2048m \</span><br><span class="line">	--mount=<span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/dev/mali0,destination=/dev/mali0 \</span><br><span class="line">	--mount=<span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/home/android,destination=/data \</span><br><span class="line">	-v /var/lib/lxcfs/proc/cpuinfo:/proc/cpuinfo:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/diskstats:/proc/diskstats:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/meminfo:/proc/meminfo:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/<span class="built_in">stat</span>:/proc/<span class="built_in">stat</span>:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/swaps:/proc/swaps:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/uptime:/proc/uptime:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/slabinfo:/proc/slabinfo:rw \</span><br><span class="line">	-v /var/lib/lxcfs/sys/devices/system/cpu:/sys/devices/system/cpu:rw \</span><br><span class="line">	-p 35555:5555 \</span><br><span class="line">	redroid/redroid:13.0.0-latest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="运行小结"><a href="#运行小结" class="headerlink" title="运行小结"></a>运行小结</h3><p>最后的启动命令为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run -itd --<span class="built_in">rm</span> --privileged \</span><br><span class="line">	--cpus 2 \</span><br><span class="line">	-m 2048m \</span><br><span class="line">	--mount=<span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/dev/mali0,destination=/dev/mali0 \</span><br><span class="line">	--mount=<span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/home/android,destination=/data \</span><br><span class="line">	-v /var/lib/lxcfs/proc/cpuinfo:/proc/cpuinfo:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/diskstats:/proc/diskstats:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/meminfo:/proc/meminfo:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/stat:/proc/stat:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/swaps:/proc/swaps:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/uptime:/proc/uptime:rw \</span><br><span class="line">	-v /var/lib/lxcfs/proc/slabinfo:/proc/slabinfo:rw \</span><br><span class="line">	-v /var/lib/lxcfs/sys/devices/system/cpu:/sys/devices/system/cpu:rw \</span><br><span class="line">	-p 35555:5555 \</span><br><span class="line">	redroid/redroid:13.0.0-latest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>实测 使用群友的小号，加入多个群聊，观察12小时，系统正常运行；</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID   NAME                 CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O        PIDS</span><br><span class="line">f94362ac6c41   determined_swanson   128.68%   1.424GiB / 2GiB     71.19%    11.7MB / 10.6MB   1.52GB / 921MB   1074</span><br></pre></td></tr></table></figure>
-<h2 id="conclusion-todo"><a class="markdownIt-Anchor" href="#conclusion-todo"></a> Conclusion &amp; TODO</h2>
-<ul>
-<li>[ ] 去除<code>privileged</code> 并探究加哪些 capabilities 可以让 redroid 跑起来</li>
-<li>[ ] 测试 gpu 加速是否可用</li>
-<li>[ ] <em>试试bot?</em></li>
-<li>[ ] 更全面的理解一下 docker/k8s(k3s) 文件结构并规划如何映射磁盘路径</li>
-<li>[ ] 完善防火墙</li>
+
+
+
+<h2 id="Conclusion-TODO"><a href="#Conclusion-TODO" class="headerlink" title="Conclusion &amp; TODO"></a>Conclusion &amp; TODO</h2><ul>
+<li><input disabled="" type="checkbox"> 去除<code>privileged</code> 并探究加哪些 capabilities 可以让 redroid 跑起来</li>
+<li><input disabled="" type="checkbox"> 测试 gpu 加速是否可用</li>
+<li><input disabled="" type="checkbox"> <em>试试bot?</em></li>
+<li><input disabled="" type="checkbox"> 更全面的理解一下 docker&#x2F;k8s(k3s) 文件结构并规划如何映射磁盘路径</li>
+<li><input disabled="" type="checkbox"> 完善防火墙</li>
 </ul>
 <p><em>感谢一下从零开始指导我 Shamrock相关知识的瓜瓜、米米，解决了我容器技术相关疑惑的Neko，共同工作在开发bot的白天天，还有各个群友的陪伴！</em></p>
-<hr class="footnotes-sep" />
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://whitechi73.github.io/OpenShamrock/guide/getting-started.html">https://whitechi73.github.io/OpenShamrock/guide/getting-started.html</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58442938">https://zhuanlan.zhihu.com/p/58442938</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://github.com/botuniverse/onebot">https://github.com/botuniverse/onebot</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn4" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://github.com/remote-android/redroid-doc">https://github.com/remote-android/redroid-doc</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn5" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144508175">https://zhuanlan.zhihu.com/p/144508175</a> <a href="#fnref5" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn6" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/run/#privileged">https://docs.docker.com/engine/reference/commandline/run/#privileged</a> <a href="#fnref6" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn7" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://www.redhat.com/sysadmin/privileged-flag-container-engines">https://www.redhat.com/sysadmin/privileged-flag-container-engines</a> <a href="#fnref7" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">DWCarrot</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://dwcarrot.github.io/blog/2023/12/29/Notes-QQ-Bot-Framework/">https://dwcarrot.github.io/blog/2023/12/29/Notes-QQ-Bot-Framework/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/Android/">Android</a><a class="post-meta__tags" href="/blog/tags/container/">container</a><a class="post-meta__tags" href="/blog/tags/xposed/">xposed</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/blog/2023/03/26/cross-compiling-and-remote-debug-on-rock5b-tips/"><span>跨平台编译&amp;远程调试(rock5b开发板)小记</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
 var disqus_config = function () {
   this.page.url = 'https://dwcarrot.github.io/blog/2023/12/29/Notes-QQ-Bot-Framework/';
@@ -298,7 +259,7 @@ var disqus_config = function () {
 var d = document, s = d.createElement('script');
 s.src = "https://" + 'dwcarrot-blog-2021' +".disqus.com/embed.js";
 s.setAttribute('data-timestamp', '' + +new Date());
-(d.head || d.body).appendChild(s);</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2023 By DWCarrot</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/blog/js/utils.js?version=1.9.0"></script><script src="/blog/js/fancybox.js?version=1.9.0"></script><script src="/blog/js/sidebar.js?version=1.9.0"></script><script src="/blog/js/copy.js?version=1.9.0"></script><script src="/blog/js/fireworks.js?version=1.9.0"></script><script src="/blog/js/transition.js?version=1.9.0"></script><script src="/blog/js/scroll.js?version=1.9.0"></script><script src="/blog/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/blog/js/katex.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+(d.head || d.body).appendChild(s);</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2024 By DWCarrot</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/blog/js/utils.js?version=1.9.1"></script><script src="/blog/js/fancybox.js?version=1.9.1"></script><script src="/blog/js/sidebar.js?version=1.9.1"></script><script src="/blog/js/copy.js?version=1.9.1"></script><script src="/blog/js/fireworks.js?version=1.9.1"></script><script src="/blog/js/transition.js?version=1.9.1"></script><script src="/blog/js/scroll.js?version=1.9.1"></script><script src="/blog/js/head.js?version=1.9.1"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/blog/js/katex.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')
