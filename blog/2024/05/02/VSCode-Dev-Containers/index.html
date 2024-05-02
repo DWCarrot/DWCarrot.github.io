@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="VSCode-Dev-Container 插件使用"><meta name="keywords" content="container,tools,vscode"><meta name="author" content="DWCarrot"><meta name="copyright" content="DWCarrot"><title>VSCode-Dev-Container 插件使用 | DWCarrot's 小站</title><link rel="shortcut icon" href="/blog/blog/img/favicon.ico"><link rel="stylesheet" href="/blog/css/index.css?version=1.9.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.1"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css?version=1.9.1"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/blog/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.4.2'
+} </script><meta name="generator" content="Hexo 5.4.2"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">使用步骤</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/blog/img/avatar1.png"></div><div class="author-info__name text-center">DWCarrot</div><div class="author-info__description text-center">DWCarrot's personal home page &amp; blog</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/blog/archives"><span class="pull-left">Articles</span><span class="pull-right">15</span></a><a class="author-info-articles__tags article-meta" href="/blog/tags"><span class="pull-left">Tags</span><span class="pull-right">24</span></a><a class="author-info-articles__categories article-meta" href="/blog/categories"><span class="pull-left">Categories</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/blog/">DWCarrot's 小站</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/blog">Home</a><a class="site-page" href="/blog/archives">Archives</a><a class="site-page" target="_blank" rel="noopener" href="https://melon.blue/@carota">Moments</a><a class="site-page" href="/blog/about">About</a><a class="site-page" href="/blog/links">Links</a><a class="site-page" href="/pages">Lab(Legacy)</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">VSCode-Dev-Container 插件使用</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2024-05-02</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Tech/"> Tech</a></div><div class="article-container" id="post-content"><p>学习 docker &#x2F; kubernetes 的时候我曾经想，既然有专门用于编译的 image base，那么要是能够用 docker 进行编译安装配置的尝试就好了，因为如果直接在系统上进行编译安装，如果尝试多次并且有失败或放弃的情况下，包管理器和系统路径(<code>/usr</code> <code>/etc</code> 等等) 下总是会被污染。当然，由于需要进行编译安装配置，要去最好可以用 vscode 连进容器里面进行操作，这样可以借用 vscode 的插件功能、代码高亮等等便捷功能。</p>
+<p>那么该怎么实现这一点呢？询问群友，一个方案是自己制作一个包含 sshd 的镜像，然后手动设置好端口映射、volume，之后用 VSCode-Remote 插件像连一个普通远程 Linux 设备一样连上去。这自然是可以，但是启动起来很麻烦。有没有更简单的方法呢？有群友提出 ”VSCode-Dev-Container 插件就是干这个的，工作上在用“。</p>
+<p>VSCode-Dev-Container 插件实际上是 VSCode-Remote 这一官方插件的一个子插件 (?)，已经在我电脑里躺了很久了，由于宿主机是 Windows 一直没有能正确触发，我也一直没在意。默认教程 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/devcontainers/tutorial">Get started with development Containers in Visual Studio Code</a> 实操需要 Docker Desktop 支持，无法使用。于是查阅了一些资料，主要参考这篇<a target="_blank" rel="noopener" href="https://code.visualstudio.com/blogs/2020/07/01/containers-wsl">官方blog</a>，在 WSL2 上实现了 Dev-Container 的正常使用。</p>
+<p>于是记录一下。理论上 WSL2 可用 普通的远程 Linux 平台也没问题。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
+<li><p>连接到 Linux 服务器</p>
+<p>和默认做法不同，因为宿主机是 Windows 没有 docker ,要使用远程 Linux (这里是 WSL) 上的 docker 。因此需要先连接到 Linux 服务器。</p>
+</li>
+<li><p>新建一个文件夹作为 工作目录 <code>workspace</code></p>
+<p>这个文件夹内的内容会被完整映射到容器中，方便修改。</p>
+</li>
+<li><p>确保 docker 正在运行</p>
+<p>WSL2 里面有个特殊情况，它不使用 systemd 管理启动任务，因此安装的 docker 每次开机也不会自己启动。</p>
+<p>可以使用 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure>
+
+<p>启动 docker 。</p>
+</li>
+<li><p>创建容器 meta</p>
+<img src="/blog/2024/05/02/VSCode-Dev-Containers/remote-connect.jpg" class="" title="Open a remote window">
+
+<p>这是 Remote 插件的 <em>Open a Remote Window</em> 。点击，选择 <em>Add Dev Container Configuration Files</em>；注意整个过程中都不会用到 <em>New Dev Container</em> 这个选项。</p>
+<p>这时候可以选择想要的开发环境、预装软件包。</p>
+<p>完成后，在 <code>workspace</code> 中会生成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── .devcontainer</span><br><span class="line">│   └── devcontainer.json</span><br><span class="line">└── .github</span><br><span class="line">    └── dependabot.yml</span><br></pre></td></tr></table></figure>
+
+<p><code>devcontainer.json</code> 中可以设置一些容器属性，例如是否容器内使用 root 等等。详细情况可参考<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/devcontainers/tutorial#_devcontainerjson">官方教程</a>。</p>
+</li>
+<li><p>连接到容器</p>
+<p>点击 Remote 插件的 <em>Open a Remote Window</em> ，选择 <em>Reopen in Container</em> ；</p>
+<p>这是将 <code>workspace</code> 映射到容器内。</p>
+<p>过程会经历 拉取、构建，可能需要不少时间，可以打开日志查看。</p>
+</li>
+<li><p>可以使用了！</p>
+<p>容器启动之后就正式可以使用了！</p>
+<p>在 <code>workspace</code> 的修改就是在 Linux 下的修改，无需同步。在其他文件夹的修改都是在容器内的，不会污染外部。</p>
+<p>VSCode-Remote 插件会自动为打开的调试服务构建 Tunnel，可以在宿主机上直接访问。</p>
+<p>当使用完成后，点击 Remote 插件的 <em>Open a Remote Window</em> ，选择断开连接可以安全退出容器（容器还保存）；</p>
+</li>
+<li><p>删除容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>查找到对应容器，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">rm</span> &lt;<span class="built_in">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>删除。</p>
+</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">DWCarrot</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://dwcarrot.github.io/blog/2024/05/02/VSCode-Dev-Containers/">https://dwcarrot.github.io/blog/2024/05/02/VSCode-Dev-Containers/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/container/">container</a><a class="post-meta__tags" href="/blog/tags/tools/">tools</a><a class="post-meta__tags" href="/blog/tags/vscode/">vscode</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/blog/2024/02/09/Recording-2023/"><span>2023-稳定与异常:缓缓前行的生活</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="disqus_thread"></div><script>var unused = null;
+var disqus_config = function () {
+  this.page.url = 'https://dwcarrot.github.io/blog/2024/05/02/VSCode-Dev-Containers/';
+  this.page.identifier = '2024/05/02/VSCode-Dev-Containers/';
+  this.page.title = 'VSCode-Dev-Container 插件使用';
+}
+var d = document, s = d.createElement('script');
+s.src = "https://" + 'dwcarrot-blog-2021' +".disqus.com/embed.js";
+s.setAttribute('data-timestamp', '' + +new Date());
+(d.head || d.body).appendChild(s);</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2024 By DWCarrot</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/blog/js/utils.js?version=1.9.1"></script><script src="/blog/js/fancybox.js?version=1.9.1"></script><script src="/blog/js/sidebar.js?version=1.9.1"></script><script src="/blog/js/copy.js?version=1.9.1"></script><script src="/blog/js/fireworks.js?version=1.9.1"></script><script src="/blog/js/transition.js?version=1.9.1"></script><script src="/blog/js/scroll.js?version=1.9.1"></script><script src="/blog/js/head.js?version=1.9.1"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/blog/js/katex.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
